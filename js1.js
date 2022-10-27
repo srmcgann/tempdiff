@@ -10,21 +10,19 @@ R = function(r, g, b, a) {
 t = go = 0
 rsz = window.onresize = () => {
   setTimeout(() => {
-    if (document.body.clientWidth > document.body.clientHeight *
-      1.77777778) {
+    if (document.body.clientWidth > document.body.clientHeight * 1.77777778) {
       c.style.height = '100vh'
-      setTimeout(() => c.style.width = c.clientHeight * 1.77777778 + 'px',
-        0)
+      setTimeout(() => c.style.width = c.clientHeight * 1.77777778 + 'px', 0)
     } else {
       c.style.width = '100vw'
-      setTimeout(() => c.style.height = c.clientWidth / 1.77777778 + 'px',
-        0)
+      setTimeout(() => c.style.height = c.clientWidth / 1.77777778 + 'px', 0)
     }
     c.width = 1920
     c.height = c.width / 1.777777778
   }, 0)
 }
 rsz()
+
 Draw = () => {
   if (!t) {
     bg = new Image()
@@ -63,16 +61,14 @@ Draw = () => {
     }
     Q = () => [c.width / 2 + 450 + X / Z * 800, c.height / 2 + Y / Z * 800]
     Q_ = () => [c.width / 2 + X / Z * 800, c.height / 2 + Y / Z * 800]
-    I = (A, B, M, D, E, F, G, H) => (K = ((G - E) * (B - F) - (H - F) * (A -
-      E)) / (J = (H - F) * (M - A) - (G - E) * (D - B))) >= 0 && K <= 1 && (
-      L = ((M - A) * (B - F) - (D - B) * (A - E)) / J) >= 0 && L <= 1 ? [A +
-      K * (M - A), B + K * (D - B)
-    ] : 0
+    I = (A, B, M, D, E, F, G, H) => (K = ((G - E) * (B - F) - (H - F) * (A - E)) / (J = (H - F) * (M - A) - (G - E) * (D - B))) >= 0 && K <= 1 && (L = ((M - A) * (B - F) - (D - B) * (A - E)) / J) >= 0 && L <= 1 ? [A + K * (M - A), B + K * (D - B)] : 0
+
     window.onmousemove = e => {
       let rect = c.getBoundingClientRect()
       mx = (e.pageX - rect.left) / c.clientWidth * c.width
       my = (e.pageY - rect.top) / c.clientHeight * c.height
     }
+
     swapping = false
     doSwapAnimation = (a, b) => {
       swapping = true
@@ -85,17 +81,21 @@ Draw = () => {
       b[1] = ty
       destP = JSON.parse(JSON.stringify(P))
     }
+
     doSwapWithEmptyCellAnimation = (P_, i) => {
+
       X1 = X = ((i % cl) - cl / 2 + .5) * sp
       Y1 = Y = (((i / cl | 0) % rw) - rw / 2 + .5) * sp
       Z1 = Z = 0
       R(Rl, Pt, Yw, 1)
       tx1 = X, ty1 = Y, tz1 = Z
+
       X2 = X = P_[0]
       Y2 = Y = P_[1]
       Z2 = Z = P_[2]
       R(Rl, Pt, Yw, 1)
       tx2 = X, ty2 = Y, tz2 = Z
+
       d = Math.hypot(tx1 - tx2, ty1 - ty2)
       if (d < 1.5) {
         P_[0] = X1
@@ -105,8 +105,10 @@ Draw = () => {
         P_[8] = 0
       }
     }
+
     settled = true
     grav = .01, tgt_ls = 400
+
     dropPieces = () => {
       settled = true
       P.map(v => {
@@ -134,6 +136,7 @@ Draw = () => {
         }
       }
     }
+
     checkBoard = () => {
       if (!settled || swapping) return
       P.map(v => {
@@ -145,9 +148,7 @@ Draw = () => {
         idxs = []
         for (let i = 0; i < 8; i++) {
           idx = i * 8 + j
-          let cellid = !(l = P.filter(v => v[7] == idx)).length ? -1 : l[0][
-            3
-          ]
+          let cellid = !(l = P.filter(v => v[7] == idx)).length ? -1 : l[0][3]
           if (i && ocv == cellid) {
             ct++
           } else {
@@ -172,15 +173,14 @@ Draw = () => {
           })
         }
       }
+
       for (let i = 0; i < 8; i++) {
         good = true
         ct = 0
         idxs = []
         for (let j = 0; j < 8; j++) {
           idx = i * 8 + j
-          let cellid = !(l = P.filter(v => v[7] == idx)).length ? -1 : l[0][
-            3
-          ]
+          let cellid = !(l = P.filter(v => v[7] == idx)).length ? -1 : l[0][3]
           if (j && ocv == cellid) {
             ct++
           } else {
@@ -206,6 +206,7 @@ Draw = () => {
         }
       }
     }
+
     processSelection = () => {
       Array(rw * cl).fill().map((v, i) => {
         X = ((i % cl) - cl / 2 + .5) * sp
@@ -259,6 +260,7 @@ Draw = () => {
         }
       })
     }
+
     settled = true
     window.onmousedown = e => {
       if (e.button == 0 && settled && !swapping) {
@@ -268,7 +270,9 @@ Draw = () => {
         processSelection()
       }
     }
+
     rw = cl = 8, sp = 1, mx = my = 0
+
     go = false
     tiles = Array(8).fill().map((v, i) => {
       let img = {
@@ -279,8 +283,7 @@ Draw = () => {
         img.loaded = true
         if (tiles.filter(v => v.loaded).length == 8) go = true
       }
-      img.img.src = '/proxy.php?url=https://whitehot.ninja/symbols/' + (
-        i + 1) + '.png'
+      img.img.src = '/proxy.php?url=https://whitehot.ninja/symbols/' + (i + 1) + '.png'
       return img
     })
     spawnP = (X, Y, Z, i) => {
@@ -289,8 +292,7 @@ Draw = () => {
     SP = [], iSPv = .1, iSPs = 100, iSPc = 200
     spawnSplosion = (X, Y, Z) => {
       a = Array(iSPc).fill().map(v => {
-        return [X, Y, Z, (Rn() - .5) * iSPv, (Rn() - .5) * iSPv, (Rn() -
-          .5) * iSPv, iSPs]
+        return [X, Y, Z, (Rn() - .5) * iSPv, (Rn() - .5) * iSPv, (Rn() - .5) * iSPv, iSPs]
       })
       SP = [...SP, ...a]
     }
@@ -299,6 +301,7 @@ Draw = () => {
       let Y = (v[1] - .5 + rw / 2) | 0
       return Y * cl + X
     }
+
     scorIncr = 8 ** 2
     init = () => {
       score = 0
@@ -311,6 +314,7 @@ Draw = () => {
     }
     init()
   }
+
   if (go) {
     x.globalAlpha = .5
     x.drawImage(bg, 0, 0, c.width, c.height)
@@ -319,6 +323,7 @@ Draw = () => {
     x.fillRect(0, 0, c.width, c.height)
     oX = oY = 0, oZ = 7
     Rl = 0, Pt = C(t / 2) / 8, Yw = S(t / 2) / 8
+
     B = Array(rw * cl).fill().map((v, i) => {
       tx = X = ((i % cl) - cl / 2 + .5) * sp
       ty = Y = (((i / cl | 0) % rw) - rw / 2 + .5) * sp
@@ -336,6 +341,7 @@ Draw = () => {
       })
       return [tx, ty, tz, hover, state]
     })
+
     B.map(v => {
       tx = v[0]
       ty = v[1]
@@ -362,6 +368,7 @@ Draw = () => {
       }
       stroke('', (v[3] || v[4]) ? '#888' : '#222')
     })
+
     if (swapping) {
       swapping = false
       sourceP.map((v, i) => {
@@ -391,8 +398,7 @@ Draw = () => {
           }
           switch (v[8]) {
             case 0:
-              bcol = v[9] ? '#0f0' : (v[10] ? `#f00` :
-                `hsla(${360/8*v[3]+45*4-0},99%,65%,.8)`)
+              bcol = v[9] ? '#0f0' : (v[10] ? `#f00` : `hsla(${360/8*v[3]+45*4-0},99%,65%,.8)`)
               fcol = ``
               break
             case 1:
@@ -409,6 +415,7 @@ Draw = () => {
       })
       x.globalCompositeOperation = 'source-over'
     } else {
+
       P.map(v => {
         X = tx = v[0] += v[4]
         Y = ty = v[1] += v[5]
@@ -433,8 +440,7 @@ Draw = () => {
           }
           switch (v[8]) {
             case 0:
-              bcol = v[9] ? '#0f0' : (v[10] ? `#f00` :
-                `hsla(${360/8*v[3]+45*4-0},99%,65%,.8)`)
+              bcol = v[9] ? '#0f0' : (v[10] ? `#f00` : `hsla(${360/8*v[3]+45*4-0},99%,65%,.8)`)
               fcol = ``
               break
             case 1:
@@ -456,6 +462,7 @@ Draw = () => {
       x.globalCompositeOperation = 'source-over'
       dropPieces()
       checkBoard()
+
       SP.map(v => {
         X = v[0] += v[3]
         Y = v[1] += v[4]
@@ -480,10 +487,12 @@ Draw = () => {
     x.font = '130px courier'
     x.fillStyle = '#fff'
     x.fillText('BEJEMMED!', 10, 100)
+
     x.font = '75px courier'
     x.fillStyle = '#fff'
     x.fillText('get 3 or more', 10, 200)
     x.fillText('in a row', 10, 275)
+
     x.font = '120px courier'
     x.fillStyle = '#fff'
     x.fillText('score', 10, 500)
@@ -500,7 +509,9 @@ Draw = () => {
     x.fillStyle = '#fff'
     x.fillText('loading...', 960 / 2, 300)
   }
+
   t += 1 / 60
   requestAnimationFrame(Draw)
+
 }
 Draw()
